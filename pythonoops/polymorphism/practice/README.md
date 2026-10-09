@@ -69,9 +69,7 @@ nvim navigation is very crucial in nvim most the time except writing actual code
 - in **nm** `dd` -> to delete current line
 - in **nm** `d$` -> cursor to end of the line delete
 - in **nm** `d0` -> cursor to beginning of the line
+- in **nm** `<number> dd` -> current line to give number <number> means any number you give
+> [!TIP] Example
+> `4dd` now current line to 4th line going to delete
 
-my name is sameer i am student of
->  [!CAUTION]
-sfdljsdljjdsljdsjlkjdsklls
-here this is different
-txt is something which matter a lot to me
