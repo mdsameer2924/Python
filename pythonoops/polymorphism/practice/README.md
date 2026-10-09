@@ -59,7 +59,19 @@ nvim navigation is very crucial in nvim most the time except writing actual code
 - in nm `yiw` -> only copy word where cursor keep
 - in **nm** `y$` -> copy cursor to end line
 - in **nm** `y0` -> copy cursor to beginning of line
+- in **nm** `ggVGy` -> copy entire source code all select with ggVG then y to copy
 
 ### Delete Text
 >
 > all command start with `d` and  stand for **delete**
+
+- in **nm** `x` -> to simple delete only one letter
+- in **nm** `dd` -> to delete current line
+- in **nm** `d$` -> cursor to end of the line delete
+- in **nm** `d0` -> cursor to beginning of the line
+
+my name is sameer i am student of
+>  [!CAUTION]
+sfdljsdljjdsljdsjlkjdsklls
+here this is different
+txt is something which matter a lot to me

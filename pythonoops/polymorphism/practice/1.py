@@ -14,12 +14,12 @@ Instantiate all three classes and pass them one by one into your broadcast funct
 
 class EmailSender:
     def send_message(self, message):
-        print(f"{self.message} as sent as a message in your Email.")
+        print(f"{message} message in your Email.")
 
 
 class SMSSender:
     def send_message(self, message):
-        print(f"{self.message} as sent a message in your SMS")
+        print(f"{message} as sent a message in your SMS")
 
 
 class WhatsAppSender:
