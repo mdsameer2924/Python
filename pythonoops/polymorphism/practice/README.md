@@ -70,6 +70,6 @@ nvim navigation is very crucial in nvim most the time except writing actual code
 - in **nm** `d$` -> cursor to end of the line delete
 - in **nm** `d0` -> cursor to beginning of the line
 - in **nm** `<number> dd` -> current line to give number <number> means any number you give
-> [!TIP] 
-> `4dd` now current line to 4th line going to delete
 
+> [!TIP]
+> `4dd` now current line to 4th line going to delete

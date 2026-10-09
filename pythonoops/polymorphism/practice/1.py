@@ -24,7 +24,7 @@ class SMSSender:
 
 class WhatsAppSender:
     def send_message(self, message):
-        print(f"{self.send_message} as sent a message in your Whatsapp")
+        print(f"{message} as sent a message in your Whatsapp")
 
 
 def broadcast(obj, message):
