@@ -12,16 +12,16 @@ Classes are blueprint or template of an object which contain `attributes` and `m
 
 ## Syntax Of Making Class
 
-**Syntax ⤵**
+### **Syntax ⤵**
 
 ```python
 class ClassName: # classname must be in pascal case 
     attributes_name="value" # this is not vairable this is attributes inside class
-    method_name(self):
+   def method_name(self):
         print("this is an method")
 ```
 
-**Example ⤵**
+### **Example ⤵**
 
 ```python
 class Book:
@@ -38,7 +38,7 @@ it is an instance of an Class which created as a real world entity
 
 ### Syntax of making object
 
-**Syntax ⤵**
+#### Syntax ⤵
 
 ```python
 object_name=ClassName() # now object is created

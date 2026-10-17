@@ -6,6 +6,10 @@
 
 - `i` -> to insert Mode
 - `a` -> append mode **better replacement of `i`**
+- `ESC` and `Ctrl + [` -> Enter in normal mode
+- in **nm** `V` -> Visual mode line wise selection text
+- in **nm** `v` -> Visual mode character wise great for select character for copy or delete
+- in **nm** `Ctrl + v` -> Visual mode block wise
 - `<leader> + e`   -> toggle on/off file explorer and for focus as well
 - `<leader> + f + t` -> toggle on/off terminal
 - `<leader> + f + T` -> toggle terminal on current file's path
@@ -57,6 +61,8 @@ nvim navigation is very crucial in nvim most the time except writing actual code
 
 - in **nm** `yy` -> to copy current line
 - in nm `yiw` -> only copy word where cursor keep
+- in nm `yiW` -> to copy all word even if there is special character
+- in nm
 - in **nm** `y$` -> copy cursor to end line
 - in **nm** `y0` -> copy cursor to beginning of line
 - in **nm** `ggVGy` -> copy entire source code all select with ggVG then y to copy
@@ -73,3 +79,14 @@ nvim navigation is very crucial in nvim most the time except writing actual code
 
 > [!TIP]
 > `4dd` now current line to 4th line going to delete
+
+## [Visual mode](./README.md#Mode switch)
+
+- `j` -> down selection
+- `k` -> up selection
+- `h` -> left selection
+- `l` -> right selection
+
+## Searching 
+- `shift + 3 or #` -> find all the selected string inside entire file
+- 
