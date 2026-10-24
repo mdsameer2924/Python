@@ -1,0 +1,14 @@
+#!/usr/bin/python3
+# Quick preview of colored output using ANSI codes
+
+GREEN = "\033[92m"
+RED = "\033[91m"
+CYAN = "\033[96m"
+YELLOW = "\033[93m"
+RESET = "\033[0m"
+
+print(f"{CYAN}[ + ]{RESET} Starting directory check...")
+print(f"{GREEN}[ OK ]{RESET} Directory verified.")
+print(f"{RED}[ - ]{RESET} Permssion Denied")
+print(f"{YELLOW}[ ! ]{RESET} Module gonna obselte in latest relase.")
+print(f"{CYAN}[ .. ]{RESET} system is setting up wait")
