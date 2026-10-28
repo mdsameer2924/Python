@@ -20,3 +20,8 @@ def log_info(msg):
 
 def log_warn(msg):
     print(f"{YELLOW}[WARN]{RESET} {msg}")
+
+    # if __name__ == "__main__":
+    log_err("This is for error or any failed operations")
+    log_info("This is for any information")
+    log_warn("Any kind of warning")

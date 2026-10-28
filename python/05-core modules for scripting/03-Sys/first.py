@@ -10,4 +10,8 @@
 import sys
 
 print(f"current file name is: {len(sys.argv)}")
-
+a = 5
+if sys.argv[1] == "-h":
+    print("Asking for Help use --help flag")
+elif sys.argv[1] == "-sq":
+    print(f"{a} square: {a * a}")
