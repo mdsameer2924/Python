@@ -29,9 +29,10 @@ def die(msg):
     sys.exit(1)
 
 
-# Example usage:
-log_info("Checking environment...")
-log_ok("System ready.")
-log_err("System Corrupted")
+if __name__ == "__main__":
+    # Example usage:
+    log_info("Checking environment...")
+    log_ok("System ready.")
+    log_err("System Corrupted")
 
-die("Kiya leekhu")
+    die("Kiya leekhu")

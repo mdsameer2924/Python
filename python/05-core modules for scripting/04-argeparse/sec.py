@@ -7,10 +7,10 @@ par = argparse.ArgumentParser(
 )
 
 par.add_argument(
-    "-ch", "-check", action="store_true", help="to check existance of a file"
+    "-ch", "--check", action="store_true", help="to check existance of a file"
 )
 
 flg = par.parse_args()
 
-if flg.ch:
+if flg.check:
     print("path exist")

@@ -3,10 +3,12 @@ import os
 import subprocess
 import sys
 import pexpect
+from pathlib import Path
 from getpass import getpass
 
 # 1. Path configuration
-home = os.environ.get("HOME", "")
+home = Path.home() / "Documents" / "secure.file"
+
 pass_script = os.path.join(home, "bin", "pass")
 keyfile = os.path.join(home, "keyde")
 cipherdir = os.path.join(home, "storage", "shared", "Zin")
