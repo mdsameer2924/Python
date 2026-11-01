@@ -20,10 +20,11 @@ flg = par.parse_args()
 
 # Convert the string path into a pathlib Path object
 path_to_check = Path(flg.target_path)
+print(flg.sdf)
 
 if flg.check:
     if path_to_check.exists():
-        print(f"Path exists: {path_to_check.resolve()}")
+        print(f"Path exists h: {path_to_check.resolve()}")
         sys.exit(0)
     else:
         print(f"Path does not exist: {path_to_check.resolve()}")
