@@ -5,7 +5,6 @@
 ## Module Import
 import os
 from pathlib import Path
-from re import sub
 import subprocess
 import sys
 import argparse
@@ -45,6 +44,7 @@ secfile = Path.home() / "Documents" / "secure.file"
 cipher_dir = secfile / "Zin"
 newp = secfile / "newpass"
 oldp = secfile / "recentpass"
+locked_file = secfile / "recentpass.enc"
 # -------------------------------------------------------------------------
 
 # flag generated
@@ -66,9 +66,21 @@ parse.add_argument(
     help="to show the time count of unlock file remaining time",
 )
 parse.add_argument(
-    "date_time", nargs="?", help="to give encryption <date> <time>: 2026-12-02 15:30:00"
+    "date_time",
+    nargs="?",
+    help="to give encryption (date,time, and day):\nfor date with time '<date time>': 2026-12-02 15:30:00\nFor duration <number>d,h,m,s:",
 )
 get_parse = parse.parse_args()
+
+## TODO: Turn into function all the code which repeat in this source code more than 1 time
+
+
+## module 1
+def copy_in_clipboard(pathofpass):
+    choose = input("Would you like to copy new password directly [y/n]: ")
+    if choose == "y":
+        subprocess.run(["clip-c", pathofpass], check=True, timeout=5)
+
 
 if get_parse.change:
     # genrate new password
@@ -133,21 +145,12 @@ if get_parse.change:
         sys.exit(1)
     else:
         log.log_ok("password successfuly changed!")
-
-    try:
-        log.log_info("new password: {new_pass}")
-        choose = input("Would you like to copy new password directly [y/n]: ")
-        if choose == "y":
-            subprocess.run(["clip-c", newp], check=True, timeout=5)
-
-    except (subprocess.CalledProcessError, OSError):
-        log.log_err("Error occur review source code")
-        sys.exit(1)
-    except subprocess.TimeoutExpired:
-        log.log_err("Unexpected error: TimeOut")
-        sys.exit(1)
+        copy_in_clipboard(newp)
 if get_parse.timelock:
     try:
+        if newp.exists():
+            subprocess.run(["rm", newp], check=False, timeout=10)
+
         subprocess.run(
             ["tlescr", "encrypt", oldp, "--at", get_parse.date_time],
             check=True,
@@ -156,17 +159,28 @@ if get_parse.timelock:
         subprocess.run(["rm", oldp], check=True)
     except subprocess.CalledProcessError:
         log.log_err("Something went wrong!")
+    except TypeError:
+        log.log_err(
+            f"to lock it's keys required to give positional argument for more info\nuse {sys.argv[0]} --help"
+        )
     else:
         log.log_ok(f"{oldp.name} successfuly got locked")
 if get_parse.timeunlock:
     try:
         if oldp.exists():
             log.log_warn("Password already unlocked")
-            subprocess.run(["clip-c", oldp])
-            log.log_ok("program executed")
-        subprocess.run(
-            ["tlescr", "decrypt", f"{secfile}/recentpass.enc"], check=True, timeout=40
-        )
-        subprocess.run(["rm", f"{secfile}/recentpass.enc"], check=True)
+            copy_in_clipboard(oldp)
+        else:
+            subprocess.run(["tlescr", "decrypt", locked_file], check=True, timeout=40)
+            subprocess.run(["rm", locked_file], check=True)
+            copy_in_clipboard(oldp)
     except subprocess.CalledProcessError:
-        log.log_err("Something went wrong try again")
+        log.log_info("Try again!")
+if get_parse.watch:
+    try:
+        if not locked_file.exists():
+            log.log_err("File is not locked!")
+        else:
+            subprocess.run(["tlescr", "watch", locked_file], check=True)
+    except subprocess.CalledProcessError:
+        log.log_ok("coundown cancelled")
