@@ -49,8 +49,11 @@ locked_file = secfile / "recentpass.enc"
 
 # flag generated
 parse = argparse.ArgumentParser(
-    usage="%(prog)s [options]",
+    usage="""%(prog)s [options]
+   or: %(prog)s -t [duration]
+      give duration only when use -t to timebased lock password""",
     description="Bootstrap script and to automate encryption task",
+    formatter_class=argparse.RawTextHelpFormatter,
 )
 parse.add_argument("-c", "--change", action="store_true", help="to change password")
 parse.add_argument(
@@ -68,7 +71,7 @@ parse.add_argument(
 parse.add_argument(
     "date_time",
     nargs="?",
-    help="to give encryption (date,time, and day):\nfor date with time '<date time>': 2026-12-02 15:30:00\nFor duration <number>d,h,m,s:",
+    help="""to set encryption in password (date,time, and day):\nfor date with time '<date time>': '2026-12-02 15:30:00'\nFor duration <number>d,h,m,s: 2m | 30s | 5d | 17:30:00""",
 )
 get_parse = parse.parse_args()
 
@@ -80,6 +83,40 @@ def copy_in_clipboard(pathofpass):
     choose = input("Would you like to copy new password directly [y/n]: ")
     if choose == "y":
         subprocess.run(["clip-c", pathofpass], check=True, timeout=5)
+
+
+def generate_password(func):
+    def wrapper():
+        try:
+            with open(newp, "w") as file_create:
+                subprocess.run(
+                    [pass_script, 18],
+                    check=True,
+                    stdout=file_create,
+                    stderr=subprocess.DEVNULL,
+                )
+                log.log_ok("password genrated in pass")
+        except subprocess.CalledProcessError:
+            log.log_err("Checkout out source code something wrong")
+            sys.exit(1)
+        except OSError:
+            log.log_err("Unexpected error my different OS than expected")
+            sys.exit(1)
+        return func()
+
+    return wrapper
+
+
+def encryption_pass_file():
+    pass
+
+
+def decrypt_pass_file():
+    pass
+
+
+def watch_encryption_remaining_time():
+    pass
 
 
 if get_parse.change:
@@ -149,14 +186,13 @@ if get_parse.change:
 if get_parse.timelock:
     try:
         if newp.exists():
-            subprocess.run(["rm", newp], check=False, timeout=10)
-
+            newp.unlink()
         subprocess.run(
             ["tlescr", "encrypt", oldp, "--at", get_parse.date_time],
             check=True,
             timeout=20,
         )
-        subprocess.run(["rm", oldp], check=True)
+        oldp.unlink()
     except subprocess.CalledProcessError:
         log.log_err("Something went wrong!")
     except TypeError:
@@ -172,7 +208,7 @@ if get_parse.timeunlock:
             copy_in_clipboard(oldp)
         else:
             subprocess.run(["tlescr", "decrypt", locked_file], check=True, timeout=40)
-            subprocess.run(["rm", locked_file], check=True)
+            locked_file.unlink()
             copy_in_clipboard(oldp)
     except subprocess.CalledProcessError:
         log.log_info("Try again!")
@@ -183,4 +219,4 @@ if get_parse.watch:
         else:
             subprocess.run(["tlescr", "watch", locked_file], check=True)
     except subprocess.CalledProcessError:
-        log.log_ok("coundown cancelled")
+        log.log_ok("countdown cancelled")
